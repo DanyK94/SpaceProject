@@ -17,10 +17,10 @@
                     "priority": 0
                 },
                 {
-                    "name": "Look",
+                    "name": "MoveVertical",
                     "type": "Value",
-                    "id": "e43ec996-0f24-44bf-ad5a-3974ef4cfbdd",
-                    "expectedControlType": "Vector2",
+                    "id": "40a65f8a-6820-4306-8796-64a551feab08",
+                    "expectedControlType": "Axis",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true,
@@ -37,6 +37,16 @@
                     "priority": 0
                 },
                 {
+                    "name": "Look",
+                    "type": "Value",
+                    "id": "e43ec996-0f24-44bf-ad5a-3974ef4cfbdd",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true,
+                    "priority": 0
+                },
+                {
                     "name": "Brake",
                     "type": "Button",
                     "id": "e37ceaa7-e51f-4685-adce-176549da4aaf",
@@ -47,10 +57,10 @@
                     "priority": 0
                 },
                 {
-                    "name": "MoveVertical",
-                    "type": "Value",
-                    "id": "40a65f8a-6820-4306-8796-64a551feab08",
-                    "expectedControlType": "Axis",
+                    "name": "RotateShip",
+                    "type": "Button",
+                    "id": "5ed39e10-ef2d-4b46-8d61-64d32dce8b8d",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true,
@@ -121,17 +131,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Look",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "b8bf5547-aed9-4f56-a93a-d100def3b2a1",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Roll",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -211,6 +210,17 @@
                     "action": "MoveVertical",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "4619b0af-7e2a-4b42-8e0c-03b95fc1bc60",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RotateShip",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

@@ -6,13 +6,18 @@ public class ShipController : MonoBehaviour
 {
     [Header("Movement")]
     [SerializeField] private float thrust = 10000f;
-    [SerializeField] private float reverseThrust = 5000f;
 
     [Header("Rotation")]
     [SerializeField] private float rotationTorque = 5000f;
+    [SerializeField] private float mouseRange = 300f;
 
     private Rigidbody rb;
     private ShipControls controls;
+
+    private Vector2 rotationInput;
+    private Vector2 rotationCenter;
+
+    
 
     private void Awake()
     {
@@ -25,58 +30,63 @@ public class ShipController : MonoBehaviour
         controls.Enable();        
     }
 
-        private void OnDisable()
+    private void OnDisable()
     {
         controls.Disable();        
+    }
+
+    private void Update()
+    {
+        if (controls.Ship.RotateShip.WasPressedThisFrame())
+        {
+            rotationCenter = Mouse.current.position.ReadValue();
+            //Debug.Log("Rotation Center -> " + rotationCenter);
+        }
+        if (controls.Ship.RotateShip.IsPressed())
+        {
+            Vector2 mousePosition = Mouse.current.position.ReadValue();
+            Vector2 delta = (mousePosition - rotationCenter) / mouseRange;
+
+            rotationInput = Vector2.ClampMagnitude(delta, 1f);
+
+            //Debug.Log("Mouse Position -> " + mousePosition + "Rotation Input -> " + rotationInput);
+        }
+        else
+        {
+            rotationInput = Vector2.zero;
+        }
     }
 
     private void FixedUpdate()
     {
         HandleTranslation();
+        HandleRotation();
         
     }
 
     private void HandleTranslation()
     {
         Vector2 move = controls.Ship.Move.ReadValue<Vector2>();
-        /*
-        float forward = move.y;
-
-        if(forward > 0f)
-        {
-            rb.AddForce(
-                transform.forward * thrust * forward,
-                ForceMode.Force
-            );
-        }
-        else if(forward < 0f)
-        {
-            rb.AddForce(
-                transform.forward * reverseThrust * forward,
-                ForceMode.Force
-            );
-        }
-        */
 
         float vertical = controls.Ship.MoveVertical.ReadValue<float>();
 
         Vector3 thrustVector = new Vector3( move.x, vertical, move.y);
 
-        rb.AddRelativeForce( thrustVector * thrust, ForceMode.Force);
+        rb.AddRelativeForce( 
+            thrustVector * thrust, 
+            ForceMode.Force);
     }
 
     private void HandleRotation()
     {
-        Vector2 look = controls.Ship.Look.ReadValue<Vector2>();
-
-        float pitch = -look.y;
-        float yaw = look.x;
-
+       
+        float pitch = -rotationInput.y;
+        float yaw = rotationInput.x;
         float roll = controls.Ship.Roll.ReadValue<float>();
 
-        Vector3 torque = transform.right * pitch + transform.up * yaw + transform.forward * roll;
+        Vector3 torque = new Vector3(pitch,yaw,roll);
 
-        rb.AddTorque(
+        rb.AddRelativeTorque(
             torque * rotationTorque,
             ForceMode.Force
         );

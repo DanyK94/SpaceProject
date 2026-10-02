@@ -103,10 +103,10 @@ public partial class @ShipControls: IInputActionCollection2, IDisposable
                     ""priority"": 0
                 },
                 {
-                    ""name"": ""Look"",
+                    ""name"": ""MoveVertical"",
                     ""type"": ""Value"",
-                    ""id"": ""e43ec996-0f24-44bf-ad5a-3974ef4cfbdd"",
-                    ""expectedControlType"": ""Vector2"",
+                    ""id"": ""40a65f8a-6820-4306-8796-64a551feab08"",
+                    ""expectedControlType"": ""Axis"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true,
@@ -123,6 +123,16 @@ public partial class @ShipControls: IInputActionCollection2, IDisposable
                     ""priority"": 0
                 },
                 {
+                    ""name"": ""Look"",
+                    ""type"": ""Value"",
+                    ""id"": ""e43ec996-0f24-44bf-ad5a-3974ef4cfbdd"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true,
+                    ""priority"": 0
+                },
+                {
                     ""name"": ""Brake"",
                     ""type"": ""Button"",
                     ""id"": ""e37ceaa7-e51f-4685-adce-176549da4aaf"",
@@ -133,10 +143,10 @@ public partial class @ShipControls: IInputActionCollection2, IDisposable
                     ""priority"": 0
                 },
                 {
-                    ""name"": ""MoveVertical"",
-                    ""type"": ""Value"",
-                    ""id"": ""40a65f8a-6820-4306-8796-64a551feab08"",
-                    ""expectedControlType"": ""Axis"",
+                    ""name"": ""RotateShip"",
+                    ""type"": ""Button"",
+                    ""id"": ""5ed39e10-ef2d-4b46-8d61-64d32dce8b8d"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true,
@@ -207,17 +217,6 @@ public partial class @ShipControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Look"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""b8bf5547-aed9-4f56-a93a-d100def3b2a1"",
-                    ""path"": """",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Roll"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -297,6 +296,17 @@ public partial class @ShipControls: IInputActionCollection2, IDisposable
                     ""action"": ""MoveVertical"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4619b0af-7e2a-4b42-8e0c-03b95fc1bc60"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RotateShip"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -306,10 +316,11 @@ public partial class @ShipControls: IInputActionCollection2, IDisposable
         // Ship
         m_Ship = asset.FindActionMap("Ship", throwIfNotFound: true);
         m_Ship_Move = m_Ship.FindAction("Move", throwIfNotFound: true);
-        m_Ship_Look = m_Ship.FindAction("Look", throwIfNotFound: true);
-        m_Ship_Roll = m_Ship.FindAction("Roll", throwIfNotFound: true);
-        m_Ship_Brake = m_Ship.FindAction("Brake", throwIfNotFound: true);
         m_Ship_MoveVertical = m_Ship.FindAction("MoveVertical", throwIfNotFound: true);
+        m_Ship_Roll = m_Ship.FindAction("Roll", throwIfNotFound: true);
+        m_Ship_Look = m_Ship.FindAction("Look", throwIfNotFound: true);
+        m_Ship_Brake = m_Ship.FindAction("Brake", throwIfNotFound: true);
+        m_Ship_RotateShip = m_Ship.FindAction("RotateShip", throwIfNotFound: true);
     }
 
     ~@ShipControls()
@@ -391,10 +402,11 @@ public partial class @ShipControls: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Ship;
     private List<IShipActions> m_ShipActionsCallbackInterfaces = new List<IShipActions>();
     private readonly InputAction m_Ship_Move;
-    private readonly InputAction m_Ship_Look;
-    private readonly InputAction m_Ship_Roll;
-    private readonly InputAction m_Ship_Brake;
     private readonly InputAction m_Ship_MoveVertical;
+    private readonly InputAction m_Ship_Roll;
+    private readonly InputAction m_Ship_Look;
+    private readonly InputAction m_Ship_Brake;
+    private readonly InputAction m_Ship_RotateShip;
     /// <summary>
     /// Provides access to input actions defined in input action map "Ship".
     /// </summary>
@@ -411,21 +423,25 @@ public partial class @ShipControls: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @Move => m_Wrapper.m_Ship_Move;
         /// <summary>
-        /// Provides access to the underlying input action "Ship/Look".
+        /// Provides access to the underlying input action "Ship/MoveVertical".
         /// </summary>
-        public InputAction @Look => m_Wrapper.m_Ship_Look;
+        public InputAction @MoveVertical => m_Wrapper.m_Ship_MoveVertical;
         /// <summary>
         /// Provides access to the underlying input action "Ship/Roll".
         /// </summary>
         public InputAction @Roll => m_Wrapper.m_Ship_Roll;
         /// <summary>
+        /// Provides access to the underlying input action "Ship/Look".
+        /// </summary>
+        public InputAction @Look => m_Wrapper.m_Ship_Look;
+        /// <summary>
         /// Provides access to the underlying input action "Ship/Brake".
         /// </summary>
         public InputAction @Brake => m_Wrapper.m_Ship_Brake;
         /// <summary>
-        /// Provides access to the underlying input action "Ship/MoveVertical".
+        /// Provides access to the underlying input action "Ship/RotateShip".
         /// </summary>
-        public InputAction @MoveVertical => m_Wrapper.m_Ship_MoveVertical;
+        public InputAction @RotateShip => m_Wrapper.m_Ship_RotateShip;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -455,18 +471,21 @@ public partial class @ShipControls: IInputActionCollection2, IDisposable
             @Move.started += instance.OnMove;
             @Move.performed += instance.OnMove;
             @Move.canceled += instance.OnMove;
-            @Look.started += instance.OnLook;
-            @Look.performed += instance.OnLook;
-            @Look.canceled += instance.OnLook;
-            @Roll.started += instance.OnRoll;
-            @Roll.performed += instance.OnRoll;
-            @Roll.canceled += instance.OnRoll;
-            @Brake.started += instance.OnBrake;
-            @Brake.performed += instance.OnBrake;
-            @Brake.canceled += instance.OnBrake;
             @MoveVertical.started += instance.OnMoveVertical;
             @MoveVertical.performed += instance.OnMoveVertical;
             @MoveVertical.canceled += instance.OnMoveVertical;
+            @Roll.started += instance.OnRoll;
+            @Roll.performed += instance.OnRoll;
+            @Roll.canceled += instance.OnRoll;
+            @Look.started += instance.OnLook;
+            @Look.performed += instance.OnLook;
+            @Look.canceled += instance.OnLook;
+            @Brake.started += instance.OnBrake;
+            @Brake.performed += instance.OnBrake;
+            @Brake.canceled += instance.OnBrake;
+            @RotateShip.started += instance.OnRotateShip;
+            @RotateShip.performed += instance.OnRotateShip;
+            @RotateShip.canceled += instance.OnRotateShip;
         }
 
         /// <summary>
@@ -481,18 +500,21 @@ public partial class @ShipControls: IInputActionCollection2, IDisposable
             @Move.started -= instance.OnMove;
             @Move.performed -= instance.OnMove;
             @Move.canceled -= instance.OnMove;
-            @Look.started -= instance.OnLook;
-            @Look.performed -= instance.OnLook;
-            @Look.canceled -= instance.OnLook;
-            @Roll.started -= instance.OnRoll;
-            @Roll.performed -= instance.OnRoll;
-            @Roll.canceled -= instance.OnRoll;
-            @Brake.started -= instance.OnBrake;
-            @Brake.performed -= instance.OnBrake;
-            @Brake.canceled -= instance.OnBrake;
             @MoveVertical.started -= instance.OnMoveVertical;
             @MoveVertical.performed -= instance.OnMoveVertical;
             @MoveVertical.canceled -= instance.OnMoveVertical;
+            @Roll.started -= instance.OnRoll;
+            @Roll.performed -= instance.OnRoll;
+            @Roll.canceled -= instance.OnRoll;
+            @Look.started -= instance.OnLook;
+            @Look.performed -= instance.OnLook;
+            @Look.canceled -= instance.OnLook;
+            @Brake.started -= instance.OnBrake;
+            @Brake.performed -= instance.OnBrake;
+            @Brake.canceled -= instance.OnBrake;
+            @RotateShip.started -= instance.OnRotateShip;
+            @RotateShip.performed -= instance.OnRotateShip;
+            @RotateShip.canceled -= instance.OnRotateShip;
         }
 
         /// <summary>
@@ -541,12 +563,12 @@ public partial class @ShipControls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnMove(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "Look" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "MoveVertical" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnLook(InputAction.CallbackContext context);
+        void OnMoveVertical(InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "Roll" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
@@ -555,6 +577,13 @@ public partial class @ShipControls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnRoll(InputAction.CallbackContext context);
         /// <summary>
+        /// Method invoked when associated input action "Look" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnLook(InputAction.CallbackContext context);
+        /// <summary>
         /// Method invoked when associated input action "Brake" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
@@ -562,11 +591,11 @@ public partial class @ShipControls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnBrake(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "MoveVertical" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "RotateShip" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnMoveVertical(InputAction.CallbackContext context);
+        void OnRotateShip(InputAction.CallbackContext context);
     }
 }
