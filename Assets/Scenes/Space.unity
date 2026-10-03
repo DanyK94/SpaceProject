@@ -524,7 +524,7 @@ Transform:
   m_GameObject: {fileID: 1482105574}
   serializedVersion: 2
   m_LocalRotation: {x: -0.08717229, y: 0.89959055, z: -0.21045254, w: -0.3726226}
-  m_LocalPosition: {x: 12.674486, y: 8.872139, z: 12.674487}
+  m_LocalPosition: {x: 10, y: 10, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -685,8 +685,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShipController
   thrust: 10000
-  reverseThrust: 5000
-  rotationTorque: 5000
+  rotationTorque: 10000
+  mouseRange: 300
+  breakingAcceleration: 5
+  rotationBrakingTorque: 2000
 --- !u!114 &2046261899
 MonoBehaviour:
   m_ObjectHideFlags: 0

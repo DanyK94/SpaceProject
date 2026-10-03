@@ -151,6 +151,16 @@ public partial class @ShipControls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""initialStateCheck"": true,
                     ""priority"": 0
+                },
+                {
+                    ""name"": ""FlightAssist"",
+                    ""type"": ""Button"",
+                    ""id"": ""eb44af45-e3f2-4144-839b-0262fdafdfc1"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false,
+                    ""priority"": 0
                 }
             ],
             ""bindings"": [
@@ -256,7 +266,7 @@ public partial class @ShipControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""9fc4612f-56a7-44b0-b128-2238f9e85141"",
-                    ""path"": ""<Keyboard>/space"",
+                    ""path"": ""<Keyboard>/alt"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -307,6 +317,17 @@ public partial class @ShipControls: IInputActionCollection2, IDisposable
                     ""action"": ""RotateShip"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""10a4443f-1bc9-4633-9299-dbea4a3a77e8"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""FlightAssist"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -321,6 +342,7 @@ public partial class @ShipControls: IInputActionCollection2, IDisposable
         m_Ship_Look = m_Ship.FindAction("Look", throwIfNotFound: true);
         m_Ship_Brake = m_Ship.FindAction("Brake", throwIfNotFound: true);
         m_Ship_RotateShip = m_Ship.FindAction("RotateShip", throwIfNotFound: true);
+        m_Ship_FlightAssist = m_Ship.FindAction("FlightAssist", throwIfNotFound: true);
     }
 
     ~@ShipControls()
@@ -407,6 +429,7 @@ public partial class @ShipControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Ship_Look;
     private readonly InputAction m_Ship_Brake;
     private readonly InputAction m_Ship_RotateShip;
+    private readonly InputAction m_Ship_FlightAssist;
     /// <summary>
     /// Provides access to input actions defined in input action map "Ship".
     /// </summary>
@@ -442,6 +465,10 @@ public partial class @ShipControls: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Ship/RotateShip".
         /// </summary>
         public InputAction @RotateShip => m_Wrapper.m_Ship_RotateShip;
+        /// <summary>
+        /// Provides access to the underlying input action "Ship/FlightAssist".
+        /// </summary>
+        public InputAction @FlightAssist => m_Wrapper.m_Ship_FlightAssist;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -486,6 +513,9 @@ public partial class @ShipControls: IInputActionCollection2, IDisposable
             @RotateShip.started += instance.OnRotateShip;
             @RotateShip.performed += instance.OnRotateShip;
             @RotateShip.canceled += instance.OnRotateShip;
+            @FlightAssist.started += instance.OnFlightAssist;
+            @FlightAssist.performed += instance.OnFlightAssist;
+            @FlightAssist.canceled += instance.OnFlightAssist;
         }
 
         /// <summary>
@@ -515,6 +545,9 @@ public partial class @ShipControls: IInputActionCollection2, IDisposable
             @RotateShip.started -= instance.OnRotateShip;
             @RotateShip.performed -= instance.OnRotateShip;
             @RotateShip.canceled -= instance.OnRotateShip;
+            @FlightAssist.started -= instance.OnFlightAssist;
+            @FlightAssist.performed -= instance.OnFlightAssist;
+            @FlightAssist.canceled -= instance.OnFlightAssist;
         }
 
         /// <summary>
@@ -597,5 +630,12 @@ public partial class @ShipControls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnRotateShip(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "FlightAssist" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnFlightAssist(InputAction.CallbackContext context);
     }
 }

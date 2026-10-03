@@ -6,16 +6,25 @@ public class ShipController : MonoBehaviour
 {
     [Header("Movement")]
     [SerializeField] private float thrust = 10000f;
+    
 
     [Header("Rotation")]
     [SerializeField] private float rotationTorque = 5000f;
     [SerializeField] private float mouseRange = 300f;
+    
+
+    [Header("Fligh Assist Forces")]
+    [SerializeField] private float breakingAcceleration = 5f;
+    [SerializeField] private float rotationBrakingTorque = 1000f;
 
     private Rigidbody rb;
     private ShipControls controls;
 
     private Vector2 rotationInput;
     private Vector2 rotationCenter;
+
+    //FLIGHT ASSISTANT
+    private bool flightAssistEnabled = true;
 
     
 
@@ -37,10 +46,17 @@ public class ShipController : MonoBehaviour
 
     private void Update()
     {
+        //FLIGHT ASSISTANT CONTROL
+        if (controls.Ship.FlightAssist.WasPressedThisFrame())
+        {
+            flightAssistEnabled = !flightAssistEnabled;
+            Debug.Log("Flight Assistant: " + flightAssistEnabled);
+        }
+
+        //MOUSE ROTATION CONTROLS
         if (controls.Ship.RotateShip.WasPressedThisFrame())
         {
             rotationCenter = Mouse.current.position.ReadValue();
-            //Debug.Log("Rotation Center -> " + rotationCenter);
         }
         if (controls.Ship.RotateShip.IsPressed())
         {
@@ -49,7 +65,6 @@ public class ShipController : MonoBehaviour
 
             rotationInput = Vector2.ClampMagnitude(delta, 1f);
 
-            //Debug.Log("Mouse Position -> " + mousePosition + "Rotation Input -> " + rotationInput);
         }
         else
         {
@@ -61,6 +76,18 @@ public class ShipController : MonoBehaviour
     {
         HandleTranslation();
         HandleRotation();
+        if (flightAssistEnabled)
+        {
+            HandleFlightAssist();
+            HandleRotationAssist();
+        }
+
+        //FLIGT ASSISTAN BRAKE
+        if (controls.Ship.Brake.IsPressed())
+        {
+            HandleFlightAssist();
+            HandleRotationAssist();
+        }
         
     }
 
@@ -90,6 +117,31 @@ public class ShipController : MonoBehaviour
             torque * rotationTorque,
             ForceMode.Force
         );
+    }
+
+    private void HandleFlightAssist()
+    {
+        Vector3 velocity = rb.linearVelocity;
+        
+        if (velocity.sqrMagnitude > 0.01f)
+        {
+            Vector3 breakingForce = -velocity.normalized * breakingAcceleration * rb.mass;
+            rb.AddForce(breakingForce, ForceMode.Force);
+        }
+
+        
+    }
+
+    private void HandleRotationAssist()
+    {
+        Vector3 angularVelocity = rb.angularVelocity;
+
+        if (angularVelocity.sqrMagnitude > 0.01f)
+        {
+            Vector3 brakingTorque = -angularVelocity.normalized * rotationBrakingTorque;
+            rb.AddTorque( brakingTorque, ForceMode.Force);
+        }
+        
     }
 
 }
