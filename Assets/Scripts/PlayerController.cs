@@ -15,6 +15,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float standingCameraHeight = 1.6f;
     [SerializeField] private float crouchingCameraHeight = 0.8f;
 
+    [Header("Look")]
+    [SerializeField] private float lookSensitivity = 0.1f;
+
 
     /*
     [SerializeField] private float gravity = -20f;
@@ -31,6 +34,7 @@ public class PlayerController : MonoBehaviour
     private CharacterController charController;
 
     private float verticalVelocity;
+    private float cameraPitch;
 
     private void Awake()
     {
@@ -52,6 +56,7 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         HandleMovement();
+        HandleLook();
         HandleCrouch();
         //IF IN GRAVITY
 
@@ -106,6 +111,18 @@ public class PlayerController : MonoBehaviour
 
             playerCamera.localPosition = new Vector3( 0f, standingCameraHeight , 0f);
         }
+    }
+
+    private void HandleLook()
+    {
+        Vector2 look = controls.Player.Look.ReadValue<Vector2>();
+
+        transform.Rotate(Vector3.up, look.x * lookSensitivity);
+
+        cameraPitch -= look.y * lookSensitivity;
+        cameraPitch = Mathf.Clamp(cameraPitch, -85f, 85f);
+
+        playerCamera.localRotation = Quaternion.Euler(cameraPitch, 0f, 0f);
     }
 
 }
