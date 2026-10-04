@@ -1,7 +1,175 @@
 {
     "version": 1,
-    "name": "ShipControls",
+    "name": "GameControls",
     "maps": [
+        {
+            "name": "Player",
+            "id": "211aef5c-383b-4def-93d1-5c5b1d91c993",
+            "actions": [
+                {
+                    "name": "Move",
+                    "type": "Value",
+                    "id": "932fb0b5-22aa-4137-bee1-54c4ecb71349",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true,
+                    "priority": 0
+                },
+                {
+                    "name": "Look",
+                    "type": "Value",
+                    "id": "04ec942c-aebc-4da5-b106-7fb0fb3be477",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true,
+                    "priority": 0
+                },
+                {
+                    "name": "Interact",
+                    "type": "Button",
+                    "id": "2eac124e-9d23-44b2-96ac-70d277a2da58",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false,
+                    "priority": 0
+                },
+                {
+                    "name": "Up",
+                    "type": "Button",
+                    "id": "a6f8d348-2ddf-4641-b1d4-db7ef0ea2411",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false,
+                    "priority": 0
+                },
+                {
+                    "name": "Down",
+                    "type": "Button",
+                    "id": "e655180c-5abd-45f3-b3aa-901352d5b9c7",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false,
+                    "priority": 0
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "2D Vector",
+                    "id": "3f8fd77a-d908-4367-a7e8-3e86f69790c7",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "c9152be9-c90f-404f-b2c4-639e6d8c7623",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "87d2624a-0e71-412b-8071-8037936aaa30",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "6cee7b08-c142-4a8e-bfec-017d978528ef",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "ec50a8a9-018b-4bf6-88a9-d266942b1d2b",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "c8e0b276-9e18-4332-a71e-541d037a8569",
+                    "path": "<Mouse>/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Look",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d00967e7-bdd1-45cc-8e3e-e08c94b1368f",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1d87d9a0-508c-425c-b38d-fa6ec038af41",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9c5185f9-42fc-4118-b9e6-dfa3a9e13041",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Up",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f6283667-1815-4784-9e74-b181e06c1e6e",
+                    "path": "<Keyboard>/ctrl",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Down",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
         {
             "name": "Ship",
             "id": "ca9b7002-352d-42c9-a43f-16c1391c397c",
@@ -37,6 +205,26 @@
                     "priority": 0
                 },
                 {
+                    "name": "RotateShip",
+                    "type": "Button",
+                    "id": "5ed39e10-ef2d-4b46-8d61-64d32dce8b8d",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true,
+                    "priority": 0
+                },
+                {
+                    "name": "EnableLook",
+                    "type": "Button",
+                    "id": "699b22cb-bc9a-4da9-a7b9-75d4bea07274",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false,
+                    "priority": 0
+                },
+                {
                     "name": "Look",
                     "type": "Value",
                     "id": "e43ec996-0f24-44bf-ad5a-3974ef4cfbdd",
@@ -44,6 +232,16 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true,
+                    "priority": 0
+                },
+                {
+                    "name": "FlightAssist",
+                    "type": "Button",
+                    "id": "eb44af45-e3f2-4144-839b-0262fdafdfc1",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false,
                     "priority": 0
                 },
                 {
@@ -57,19 +255,9 @@
                     "priority": 0
                 },
                 {
-                    "name": "RotateShip",
+                    "name": "CameraToggle",
                     "type": "Button",
-                    "id": "5ed39e10-ef2d-4b46-8d61-64d32dce8b8d",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true,
-                    "priority": 0
-                },
-                {
-                    "name": "FlightAssist",
-                    "type": "Button",
-                    "id": "eb44af45-e3f2-4144-839b-0262fdafdfc1",
+                    "id": "03b700d1-aac1-416d-86a7-e9ec1ed5559c",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -180,7 +368,7 @@
                 {
                     "name": "",
                     "id": "9fc4612f-56a7-44b0-b128-2238f9e85141",
-                    "path": "<Keyboard>/alt",
+                    "path": "<Keyboard>/tab",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -240,6 +428,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "FlightAssist",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "adc0ffb6-3c32-41ba-a7d8-000fa451217d",
+                    "path": "<Keyboard>/v",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CameraToggle",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ad59738a-ca1d-450d-9e21-91a4e9fe9f42",
+                    "path": "<Keyboard>/leftAlt",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "EnableLook",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

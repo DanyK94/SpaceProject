@@ -18,7 +18,7 @@ public class ShipController : MonoBehaviour
     [SerializeField] private float rotationBrakingTorque = 1000f;
 
     private Rigidbody rb;
-    private ShipControls controls;
+    private GameControls controls;
 
     private Vector2 rotationInput;
     private Vector2 rotationCenter;
@@ -26,12 +26,17 @@ public class ShipController : MonoBehaviour
     //FLIGHT ASSISTANT
     private bool flightAssistEnabled = true;
 
+
+    public Vector3 LinearVelocity => rb.linearVelocity;
+    public Vector3 AngularVelocity => rb.angularVelocity;
+    public bool FlightAssistEnabled => flightAssistEnabled;
+
     
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        controls = new ShipControls();
+        controls = new GameControls();
     }
 
     private void OnEnable()
