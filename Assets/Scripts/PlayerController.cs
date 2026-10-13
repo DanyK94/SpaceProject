@@ -36,6 +36,10 @@ public class PlayerController : MonoBehaviour
     private float verticalVelocity;
     private float cameraPitch;
 
+
+    private bool isSeated;
+    private Transform currentSeatPoint;
+
     private void Awake()
     {
         controls = new GameControls();
@@ -60,14 +64,22 @@ public class PlayerController : MonoBehaviour
    
 
     private void Update()
-    {
-        HandleMovement();
+    {   
         HandleLook();
+
+        if (isSeated)
+        {
+            return;
+        }
+
+        HandleMovement();
+        
         HandleCrouch();
         //IF IN GRAVITY
 
         //IF GRAVITY 0
         // HANDLE VERTICAL WITH DownCrouch key and UpJump key
+        
     }
 
     private void HandleMovement()
@@ -129,6 +141,36 @@ public class PlayerController : MonoBehaviour
         cameraPitch = Mathf.Clamp(cameraPitch, -85f, 85f);
 
         playerCamera.localRotation = Quaternion.Euler(cameraPitch, 0f, 0f);
+    }
+
+
+    //SEAT
+    public void EnterSeat(Transform seatPoint)
+    {
+        isSeated = true;
+        currentSeatPoint = seatPoint;
+
+        transform.SetPositionAndRotation(currentSeatPoint.position, currentSeatPoint.rotation);
+    }
+
+    public void ExitSeat(Transform exitPoint)
+    {
+        if (!isSeated || exitPoint == null)
+        {
+            return;
+        }
+
+        charController.enabled = false;
+
+        Debug.Log($"ExitPoint position: {exitPoint.position}");
+
+        transform.SetPositionAndRotation(exitPoint.position, exitPoint.rotation);
+
+        charController.enabled = true;
+
+        verticalVelocity = 0f;
+        isSeated = false;
+        currentSeatPoint = null;
     }
 
 }
