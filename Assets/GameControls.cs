@@ -349,6 +349,16 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""initialStateCheck"": false,
                     ""priority"": 0
+                },
+                {
+                    ""name"": ""ToggleManoeuvring"",
+                    ""type"": ""Button"",
+                    ""id"": ""197575c3-dfc8-4cb0-bbcd-541abdf121cb"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false,
+                    ""priority"": 0
                 }
             ],
             ""bindings"": [
@@ -454,7 +464,7 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""9fc4612f-56a7-44b0-b128-2238f9e85141"",
-                    ""path"": ""<Keyboard>/tab"",
+                    ""path"": ""<Keyboard>/x"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -538,6 +548,17 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
                     ""action"": ""EnableLook"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1b161f7a-a51c-43d0-ae47-a840e39f12d3"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleManoeuvring"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -562,6 +583,7 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
         m_Ship_FlightAssist = m_Ship.FindAction("FlightAssist", throwIfNotFound: true);
         m_Ship_Brake = m_Ship.FindAction("Brake", throwIfNotFound: true);
         m_Ship_CameraToggle = m_Ship.FindAction("CameraToggle", throwIfNotFound: true);
+        m_Ship_ToggleManoeuvring = m_Ship.FindAction("ToggleManoeuvring", throwIfNotFound: true);
     }
 
     ~@GameControls()
@@ -792,6 +814,7 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Ship_FlightAssist;
     private readonly InputAction m_Ship_Brake;
     private readonly InputAction m_Ship_CameraToggle;
+    private readonly InputAction m_Ship_ToggleManoeuvring;
     /// <summary>
     /// Provides access to input actions defined in input action map "Ship".
     /// </summary>
@@ -839,6 +862,10 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Ship/CameraToggle".
         /// </summary>
         public InputAction @CameraToggle => m_Wrapper.m_Ship_CameraToggle;
+        /// <summary>
+        /// Provides access to the underlying input action "Ship/ToggleManoeuvring".
+        /// </summary>
+        public InputAction @ToggleManoeuvring => m_Wrapper.m_Ship_ToggleManoeuvring;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -892,6 +919,9 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
             @CameraToggle.started += instance.OnCameraToggle;
             @CameraToggle.performed += instance.OnCameraToggle;
             @CameraToggle.canceled += instance.OnCameraToggle;
+            @ToggleManoeuvring.started += instance.OnToggleManoeuvring;
+            @ToggleManoeuvring.performed += instance.OnToggleManoeuvring;
+            @ToggleManoeuvring.canceled += instance.OnToggleManoeuvring;
         }
 
         /// <summary>
@@ -930,6 +960,9 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
             @CameraToggle.started -= instance.OnCameraToggle;
             @CameraToggle.performed -= instance.OnCameraToggle;
             @CameraToggle.canceled -= instance.OnCameraToggle;
+            @ToggleManoeuvring.started -= instance.OnToggleManoeuvring;
+            @ToggleManoeuvring.performed -= instance.OnToggleManoeuvring;
+            @ToggleManoeuvring.canceled -= instance.OnToggleManoeuvring;
         }
 
         /// <summary>
@@ -1076,5 +1109,12 @@ public partial class @GameControls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnCameraToggle(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "ToggleManoeuvring" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnToggleManoeuvring(InputAction.CallbackContext context);
     }
 }

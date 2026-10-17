@@ -263,6 +263,16 @@
                     "interactions": "",
                     "initialStateCheck": false,
                     "priority": 0
+                },
+                {
+                    "name": "ToggleManoeuvring",
+                    "type": "Button",
+                    "id": "197575c3-dfc8-4cb0-bbcd-541abdf121cb",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false,
+                    "priority": 0
                 }
             ],
             "bindings": [
@@ -368,7 +378,7 @@
                 {
                     "name": "",
                     "id": "9fc4612f-56a7-44b0-b128-2238f9e85141",
-                    "path": "<Keyboard>/tab",
+                    "path": "<Keyboard>/x",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -450,6 +460,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "EnableLook",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1b161f7a-a51c-43d0-ae47-a840e39f12d3",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ToggleManoeuvring",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

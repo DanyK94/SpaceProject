@@ -29,6 +29,9 @@ public class CameraController : MonoBehaviour
     private float tpvYaw;
     private float tpvPitch;
 
+
+    public Transform ActiveCameraTransform => isFPV ? mainCamera.transform : secondaryCamera.transform;
+
     private void Awake()
     {
         controls = new GameControls();

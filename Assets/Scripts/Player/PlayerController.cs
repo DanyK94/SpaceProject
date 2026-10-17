@@ -10,7 +10,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float standingHeight = 2f;
     [SerializeField] private float crouchingHeight = 1f;
 
-    [Header("Character Camera Heights")]
+    [Header("Camera")]
+    [SerializeField] private PlayerCameraController playerCameraController;
     [SerializeField] private Transform playerCamera;
     [SerializeField] private float standingCameraHeight = 1.6f;
     [SerializeField] private float crouchingCameraHeight = 0.8f;
@@ -32,6 +33,8 @@ public class PlayerController : MonoBehaviour
 
     private GameControls controls;
     private CharacterController charController;
+    private Collider[] playerColliders;
+    private Collider[] shipColliders;
 
     private float verticalVelocity;
     private float cameraPitch;
@@ -44,6 +47,7 @@ public class PlayerController : MonoBehaviour
     {
         controls = new GameControls();
         charController = GetComponent<CharacterController>();
+        playerColliders = GetComponentsInChildren<Collider>(true);
     }
 
     private void OnEnable()
@@ -65,16 +69,16 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {   
-        HandleLook();
+        
 
         if (isSeated)
         {
             return;
         }
-
-        HandleMovement();
-        
+        HandleLook();
+        HandleMovement(); 
         HandleCrouch();
+        
         //IF IN GRAVITY
 
         //IF GRAVITY 0
@@ -135,21 +139,38 @@ public class PlayerController : MonoBehaviour
     {
         Vector2 look = controls.Player.Look.ReadValue<Vector2>();
 
-        transform.Rotate(Vector3.up, look.x * lookSensitivity);
+        
 
         cameraPitch -= look.y * lookSensitivity;
         cameraPitch = Mathf.Clamp(cameraPitch, -85f, 85f);
 
         playerCamera.localRotation = Quaternion.Euler(cameraPitch, 0f, 0f);
+
+        if (!isSeated)
+        {
+            transform.Rotate(Vector3.up, look.x * lookSensitivity);
+        }
     }
 
 
     //SEAT
     public void EnterSeat(Transform seatPoint)
     {
+        if (isSeated || seatPoint == null)
+        {
+            return;
+        }
+        if (playerCameraController != null)
+        {
+            playerCameraController.SetSeatedMode(true);
+        }
+
+        charController.enabled = false;
+
         isSeated = true;
         currentSeatPoint = seatPoint;
 
+        transform.SetParent(seatPoint,true);
         transform.SetPositionAndRotation(currentSeatPoint.position, currentSeatPoint.rotation);
     }
 
@@ -159,10 +180,13 @@ public class PlayerController : MonoBehaviour
         {
             return;
         }
+        if (playerCameraController != null)
+        {   
+            playerCameraController.SetSeatedMode(false);
+        }
 
         charController.enabled = false;
-
-        Debug.Log($"ExitPoint position: {exitPoint.position}");
+        transform.SetParent(null, true);
 
         transform.SetPositionAndRotation(exitPoint.position, exitPoint.rotation);
 

@@ -6,6 +6,9 @@ public class PilotSeat : Interactable
     [Header("Seat")]
     [SerializeField] private Transform seatPoint;
     [SerializeField] private Transform exitPoint;
+    
+    [Header("Ship")]
+    [SerializeField] private ShipController shipController;
 
     private PlayerController seatedPlayer;
     private bool isOccupied => seatedPlayer != null;
@@ -31,6 +34,11 @@ public class PilotSeat : Interactable
     {
         seatedPlayer = player;
         player.EnterSeat(seatPoint);
+
+        if (shipController != null)
+        {
+            shipController.SetPilotActive(true);
+        }
     }
 
     private void LeaveSeat()
@@ -41,5 +49,10 @@ public class PilotSeat : Interactable
         }
         seatedPlayer.ExitSeat(exitPoint);
         seatedPlayer = null;
+
+        if(shipController != null)
+        {
+            shipController.SetPilotActive(false);
+        }
     }
 }
